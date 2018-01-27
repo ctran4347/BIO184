@@ -3,5 +3,5 @@
     "python.unitTest.pyTestArgs": [
         "2_strings"
     ],
-    "python.unitTest.pyTestEnabled": true
+    "python.unitTest.pyTestEnabled": false
 }
