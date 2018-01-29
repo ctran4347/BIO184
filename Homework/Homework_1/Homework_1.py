@@ -57,5 +57,4 @@ print("The percentage of DNA that is actually coding is", percentage_coding_regi
 
 #Splicing out introns, part three
 #Given data part one
-
 print("The revised dna sequence has been changed so that the coding bases are upper and non-coding are lower cased:",short_dna_sequence_splicing_intron_1[:63] + short_dna_sequence_splicing_intron_1[64:92].lower() + short_dna_sequence_splicing_intron_1[93:])
