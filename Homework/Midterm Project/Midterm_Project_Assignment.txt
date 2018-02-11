@@ -1,0 +1,43 @@
+Input files
+
+There are two input files located under files/midterm1: 
+
+Sequence file- this contains three sequences from different organisms.  
+
+Vector file- this contains a vector sequence
+
+(A vector is  a molecule of DNA that can be replicated independently of the chromosome.  Vectors are used as a tool for cloning DNA.  Cloning is when you insert a gene into a vector and then into a microbe and the microbe makes copies of it)
+
+ 
+
+Assignment
+
+ 
+
+Part 1. 
+
+Sort the DNA sequences in the sequence file in two ways:
+
+1. length
+
+2. GC content.  
+
+Display these 2 rank ordered lists to the screen and 
+
+write them to an output file.   
+
+ 
+
+Part 2. 
+
+Cut the three sequences with the restriction enzymes NcoI and Sac and insert the largest fragment into the vector between the NcoI and SacI sites of the vector.  Display them to the screen and write them to a file.
+
+ 
+
+Parameters for the project
+
+No sequences hard coded into the program
+
+Define and use two functions
+
+Separate names, GC content and length with tabs.
