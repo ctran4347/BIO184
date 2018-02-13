@@ -41,20 +41,27 @@ third_sequence=sequence_only[2]
 # NcoI cleaves at 5' C^CATGG 
 # SacI cleaves at 5' GAGCT^C
 # Counts how many restriction sites there are for NcoI, for reference
+
 ncoi_total=0
 for lines in sequence_only: # Counts the number of NcoI restriction sites
     ncoi_count=lines.count("CCATGG")
     ncoi_total=ncoi_total+ncoi_count
     print("NcoI count is",ncoi_count)
 print("NcoI total is",ncoi_total)
+
 ncoi_list=[]
-for lines in sequence_only:
-    split=lines.split("CCATGG")
-    split_1=split[0] + str("C")
-    split_2= str("CATGG") + split[1]
-    ncoi_list.append(split_1)
-    ncoi_list.append(split_2)
-print("New NcoI length is",len(ncoi_list),"and list is",ncoi_list)
+for lines in sequence_only: # splits restriction sites and adds nucleotides back
+    if lines.count("CCATGG") != 0:
+        split=lines.split("CCATGG")
+        split_1=split[0] + str("C")
+        split_2= str("CATGG") + split[1]    # Works
+        ncoi_list.append(split_1)
+        ncoi_list.append(split_2)
+    else:
+        pass
+print(type(sequence_only))
+print(type(ncoi_list))
+
 saci_total=0
 for lines in ncoi_list: # Counts the number of SacI restriction sties
     saci_count=lines.count("GAGCTC")
@@ -63,33 +70,47 @@ for lines in ncoi_list: # Counts the number of SacI restriction sties
 print("SacI total is",saci_total)
 
 saci_list=[]
-for lines in ncoi_list:
-    split=lines.split("GAGCTC")
-    split_1=split[0]+str("GAGCT")
-    split_2=str("C") + split[1]
-    saci_list.append(split_1)
-    saci_list.append(split_2)
-print("list here",saci_list)
+for lines in ncoi_list: # splits restriction sites and adds nucleotides back
+    if lines.count("GAGCTC") !=0:
+        split=lines.split("GAGCTC")
+        split_1=split[0]+str("GAGCT")
+        split_2= str("C") + split[1]
+        saci_list.append(split_1)
+        saci_list.append(split_2)
+    else:
+        pass
+print(saci_list)
 
-#  sorted_restriction_fragments=sorting_by_length(saci_list)
-# sorted_restriction_fragments_reverse=sorted_restriction_fragments.reverse()
-# for lines in sorted_restriction_fragments:
-#     print("length is",len(lines),lines)
+#This part will sort by largest fragment
+sorted_restriction_fragments=sorting_by_length(saci_list)
+sorted_restriction_fragments_reverse=sorted_restriction_fragments.reverse()
 
-# vector_file=open("pTrc99A.txt").read()
-# vector_ncoi_cut=""
-# for lines in vector_file:
-#     split=lines.split("CCATGG")
-#     split_1=split[0]+largest_fragment
-#     split_final=split_1+split[1]
-#     vector_ncoi_cut=vector_ncoi_cut+split_final
-# final_vector=""
-# for lines in vector_ncoi_cut
-#     split=lines.split("GAGCTC")
-#     split_1=split[0]+largest_fragment
-#     split_final=split_1+split[1]
-#     final_vector=final_vector+split_final
-# print("The final vector file is",final_vector)
+for lines in sorted_restriction_fragments:
+    print("length is",len(lines),lines)
+
+largest_fragment=sorted_restriction_fragments[0]
+vector_file=open("pTrc99A.txt").read().upper()
+
+
+vector_ncoi_cut=""
+if vector_file.count("CCATGG") != 0:
+    vector_ncoi_cut=vector_file.replace("CCATGG",largest_fragment)
+else:
+    print("No NcoI restriction sites")
+
+    
+final_vector=""
+if vector_ncoi_cut.count("GAGCTC") != 0:
+    final_vector=vector_ncoi_cut.replace("GAGCTC",largest_fragment)
+else:
+    print("No SocI restriction sites")
+print("The Final Vector is",final_vector)
+output3=open("final_vector.txt","w").write(final_vector)
+
+
+
+    
+
 
 
 
