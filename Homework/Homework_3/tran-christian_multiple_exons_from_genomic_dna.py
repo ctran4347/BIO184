@@ -12,5 +12,5 @@ for each_line in start_stop:
     exon_segements=genomic_section[start:stop]
     coding_sequence=coding_sequence + exon_segements
 #print(coding_sequence) # What this does is that it utilizes coding_sequence("") or an empty string and repeatedly has exon_segments or strings added to it to create the final product
-output=open("coding_sequence.txt","w") # Creates an output file in write mode hence the w
+output=open("exonic.txt","w") # Creates an output file in write mode hence the w
 output.write(coding_sequence) #Writes into output file with coding_sequence
