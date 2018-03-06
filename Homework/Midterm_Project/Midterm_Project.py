@@ -1,55 +1,57 @@
-# Midterm Project part one
+
 count=0 #just for testing purposes
 sequence_file=open("sequences.txt") # Sequence file is opened
 sequence=sequence_file.read() # Sequence file is read
 removed_lines=sequence.replace(" ","") # White space is removed
 name_and_sequence=removed_lines.split() # the names and sequence split into a list
 sequence_only=name_and_sequence[1::2] # Sorts list to remove headers at the beginning of every odd line
-output1=open("dna_sequence_by_length.txt","w") 
-output2=open("dna_sequence_by_gc_content.txt","w")
 
+output1=open("dna_sequence_by_length.FASTA","w") 
+output2=open("dna_sequence_by_gc_content.FASTA","w")
 
+names_only=name_and_sequence[0::2]
 
-def sorting_by_length(genomic_sequence): # Sorts by length
-    #Definition created to sort a genomic sequence by length
-    genomic_sequence.sort(key=len)
-    return(genomic_sequence)
-print(">Sorted List by Length")
+def randomfunction(a):
+    # Function that returns the next variable
+    return len(a[1])
 
-dna_sequence_length=sorting_by_length(sequence_only) # 
-
-for lines in dna_sequence_length: # Goes through each line in file and sorts by length
-    print("*Length =",len(lines),lines,"\n")  # Goes through each element(lines) in file
-    length=str(len(lines))
-    output1.write(length + "\n" + lines + "\n") # Writes the output and made pretty
+for names,sequences in sorted(zip(names_only,sequence_only),key=randomfunction): 
+    print(names + "\t" + str(len( sequences)) + "\t" + sequences + "\n" + "\n")
+    output1.write(names + "\t"+ str(len(sequences)) + "\t" + sequences + "\n" + "\n")
 
 def sorting_gc_content(genomic_sequence):
-    # Definition created to find GC content and sort by GC content
+    # Function created to find GC content of a sequence. DOES NOT SORT despite the name
     length=len(genomic_sequence)
     g_content=genomic_sequence.count("G")
     c_content=genomic_sequence.count("C")
     gc_content=((g_content+c_content)/(length))
     return gc_content
 
-print(">Sorted List by GC Content")
+gc_content_list=[]
+for sequence in sequence_only:
+    gc=sorting_gc_content(sequence)
+    gc_content_list.append(gc)
 
-for lines in sequence_only: # Goes through in each line of file and utilizing sort_gc_content function created
-    print("*GC Content =",sorting_gc_content(lines),lines,"\n") 
-    gc_content=str(sorting_gc_content(lines))
-    output2.write(gc_content + "\n" + lines + "\n")  # Writes output and made pretty    
+def randomfunction2(a):
+    # Another function that returns the next value. 
+    return a[1]
+
+for names,gc_content,sequences in sorted(zip(names_only,gc_content_list,sequence_only),key=randomfunction2):
+    print(names + "\t"+ str(gc_content) + "\t" + sequences + "\n" + "\n")
+    output2.write(names + "\t" + str(gc_content) + "\t" + sequences + "\n" + "\n")
 
 #Midterm Project Part 2
 # NcoI cleaves at 5' C^CATGG 
 # SacI cleaves at 5' GAGCT^C
 
-# Counts how many restriction sites there are for NcoI, for reference
-ncoi_total=0
-for lines in sequence_only: # Counts the number of NcoI restriction sites
-    ncoi_count=lines.count("CCATGG")
-    ncoi_total += ncoi_count
-    print("NcoI count is",ncoi_count)
-print("NcoI total is",ncoi_total)
 
+# Counts how many restriction sites there are for NcoI, for reference
+# ncoi_total=0
+# for lines in sequence_only: # Counts the number of NcoI restriction sites
+#     ncoi_count=lines.count("CCATGG")
+#     ncoi_total += ncoi_count
+#     print("NcoI count is",ncoi_count)
+# print("NcoI total is",ncoi_total)
 
 ncoi_list=[]
 for lines in sequence_only: # splits restriction sites and adds nucleotides back
@@ -61,16 +63,16 @@ for lines in sequence_only: # splits restriction sites and adds nucleotides back
         ncoi_list.append(split_2)
     else:
         pass
-print(type(sequence_only))
-print(type(ncoi_list))
+# print(type(sequence_only))
+# print(type(ncoi_list))
 
 #Counts the number of SacI restriction sites for reference
-saci_total=0
-for lines in ncoi_list: # Counts the number of SacI restriction sties
-    saci_count=lines.count("GAGCTC")
-    saci_total += saci_count
-    print("SacI count is",saci_count)
-print("SacI total is",saci_total)
+# saci_total=0
+# for lines in ncoi_list: # Counts the number of SacI restriction sties
+#     saci_count=lines.count("GAGCTC")
+#     saci_total += saci_count
+#     print("SacI count is",saci_count)
+# print("SacI total is",saci_total)
 
 saci_list=[]
 for lines in ncoi_list: # splits restriction sites and adds nucleotides back
@@ -82,19 +84,25 @@ for lines in ncoi_list: # splits restriction sites and adds nucleotides back
         saci_list.append(split_2)
     else:
         pass
-print(saci_list)
+# print(saci_list)
+
+def sorting_by_length(genomic_sequence): # Sorts by length
+    #Definition created to sort a genomic sequence by length
+    genomic_sequence.sort(key=len)
+    return(genomic_sequence)
+
 
 
 sorted_restriction_fragments=sorting_by_length(saci_list) # Sorts fragments
 sorted_restriction_fragments_reverse=sorted_restriction_fragments.reverse() # Reverse the list so that the largest fragment is first
-
+output3=open("splicings_sorted_by_length.txt","w")
 for lines in sorted_restriction_fragments: # Checks whether the method above works
-    print("length is",len(lines),lines)
+    print("Length is" + "\t" + str(len(lines)) + "\t" + lines)
+    output3.write("Length is" + "\t" + str(len(lines)) + "\t" + lines + "\n")
 
 largest_fragment=sorted_restriction_fragments[0] # Theoretically largest element should be first
-vector_file=open("pTrc99A.txt").read().upper()
-
-
+vector=open("pTrc99A.txt").read().replace(">pTrc99A","").upper()
+vector_file=vector[1:].replace("\n","")
 
 if vector_file.count("CCATGG") != 0:
     vector_ncoi_cut=vector_file.replace("CCATGG",largest_fragment) # Replaces every NcoI site with the largest fragment
@@ -108,7 +116,7 @@ else:
     print("No SocI restriction sites")
 
 print("The Final Vector is",final_vector)
-output3=open("final_vector.txt","w").write(final_vector)
+output4=open("final_vector.txt","w").write(">pTrc99A" + "\n" + final_vector)
 
 
 
