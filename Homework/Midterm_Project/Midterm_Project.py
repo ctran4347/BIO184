@@ -134,12 +134,12 @@ for splices in second_sequence_placeholder_1:
         second_sequence_placeholder_2.append(splices)
 print(second_sequence_placeholder_2)
 second_sequence_sorted=sorting_by_length(second_sequence_placeholder_2) 
-second_sequence_sorted_reverse=first_sequence_sorted.reverse() # Reverse the list so that the largest fragment is first
+second_sequence_sorted_reverse=second_sequence_sorted.reverse() # Reverse the list so that the largest fragment is first
 
 output5=open("splicings_sorted_by_length_second_sequence.txt","w")
 for lines in second_sequence_sorted: # Checks whether the method above works
     print("Length is" + "\t" + str(len(lines)) + "\t" + lines)
-    output3.write("Length is" + "\t" + str(len(lines)) + "\t" + lines + "\n")
+    output5.write("Length is" + "\t" + str(len(lines)) + "\t" + lines + "\n")
 
 largest_fragment_second=second_sequence_sorted[0] # Theoretically largest element should be first
 vector=open("pTrc99A.txt").read().replace(">pTrc99A","").upper()
@@ -188,7 +188,7 @@ third_sequence_sorted_reverse=third_sequence_sorted.reverse() # Reverse the list
 output7=open("splicings_sorted_by_length_third_sequence.txt","w")
 for lines in third_sequence_sorted: # Checks whether the method above works
     print("Length is" + "\t" + str(len(lines)) + "\t" + lines)
-    output3.write("Length is" + "\t" + str(len(lines)) + "\t" + lines + "\n")
+    output7.write("Length is" + "\t" + str(len(lines)) + "\t" + lines + "\n")
 
 largest_fragment_third=third_sequence_sorted[0] # Theoretically largest element should be first
 vector=open("pTrc99A.txt").read().replace(">pTrc99A","").upper()
