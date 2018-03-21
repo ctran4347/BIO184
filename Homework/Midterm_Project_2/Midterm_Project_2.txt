@@ -1,0 +1,67 @@
+Midterm_2 instructions
+General overview
+
+Your program will require two files: one is a list of mRNA (transcript) sequences in FASTA format (including their parent gene names), and the other is a tab-separated list linking various gene IDs to GO annotation terms (GO annotations are a curated set of terms associated with various biological processes and functional categories). See the example below for more detail.
+
+For each transcript sequence in the FASTA file, you will need to:
+
+Determine the longest open reading frame (ORF) in the sequence.
+Print a new header containing both information about the GO annotation associated with the parent gene and the length of the longest ORF found.
+Print the amino acid sequence translation of the transcript. This output will need to be sorted by increasing length of longest ORF.
+Required files
+
+Your program will need to use the following two files (in the midterm_2 folder in Files):
+
+transcripts.midterm2.fasta
+
+transcript DNA sequences
+go_terms.midterm2.txt
+
+gene IDs and their associated GO terms
+Sample input/output
+
+You might have a header/sequence entry that looks like this:
+
+>t_127    g_SXMPSC
+GGCTCTTTAGATTCACGTGTATAGGACGAGAGGGTAGTGCGCGATGGTTGTCCTATCACGTTTTCGAGTAACTGACGCACGCACCGTTATATAACGATCAGGGCTTGGCATTGTGTATTGACATGGGTGTATATTATAGACTATGGGGTGGCACCGATGGCTTTCTTTACTGGGCTCTGGGGCCCCTTCACCTGTGTAAGCAGAGTGCTGAGCCATCACTGTTTCAGCACCACTGGGAGTCTGAGTGCGATTCAGTAGAAGATGACGCGGGTACGAGTGGTGGACAACAGTGCCCTGGGGAACAGCCCATACCATCGGGCTCCTCGCTGCATCCATGTCTATAAGAAGAATGGAGTGGGCAAGGTGGGCGACCAGATACTACTGGCCATCAAGGGACAGAAGAAAAAGGCGCTCATTGTGGGGCACTGCATGCCTGGCCCCCGAATGACCCCCAGATTCGACTCCAACAACGTGGTCCTCATTGAGGACAACGGGAACCCTGTGGGGACACGAATTAAGACACCCATCCCCACCAGCCTGCGCAAGCGGGAAGGCGAGTATTCCAAGGTGCTGGCCATTGCTCAGAACTTTGTGTGAACCCCTACCTTTCGCGAGGGAGTATAAGGCAATGAAATCCTAGTACCCCTATAAAGAGTGCTATGTAAAACATGAGCTGTC
+The header, >t_127 g_SXMPSC, contains the IDs of both the transcript (t_X) and gene (g_X). The gene ID will need to be used to retrieve the associated GO annotation term for that gene from the go_terms.midterm2.txt file.
+
+After translating, this transcript entry might look like this:
+
+>t_127    g_SXMPSC
+GSLDSRV*DERVVRDGCPITFSSN*RTHRYITIRAWHCVLTWVYIIDYGVAPMAFFTGLWGPFTCVSRVLSHHCFSTTGSLSAIQ*KMTRVRVVDNSALGNSPYHRAPRCIHVYKKNGVGKVGDQILLAIKGQKKKALIVGHCMPGPRMTPRFDSNNVVLIEDNGNPVGTRIKTPIPTSLRKREGEYSKVLAIAQNFV*TPTFREGV*GNEILVPL*RVLCKT*AV
+There will be one (or possibly more, if >1 ORF within the same transcript has the same length) longest ORF for each sequence. If there are 2+ ORFs with the same length longer than the rest, simply report that one length in your output.
+
+In this example, the longest ORF appears to be the sequence
+
+KMTRVRVVDNSALGNSPYHRAPRCIHVYKKNGVGKVGDQILLAIKGQKKKALIVGHCMPGPRMTPRFDSNNVVLIEDNGNPVGTRIKTPIPTSLRKREGEYSKVLAIAQNFV
+which has a length of 112 amino acids. In the file go_terms.midterm2.txt, the gene g_SXMPSC has the following entry:
+
+g_SXMPSC    protein complex scaffold activity(GO:0032947)
+Therefore, the final output for this sequence should be (i.e. what you will actually print to the screen):
+
+>t_127  GO:protein complex scaffold activity(GO:0032947)   MAX_ORF:112 aa
+GSLDSRV*DERVVRDGCPITFSSN*RTHRYITIRAWHCVLTWVYIIDYGVAPMAFFTGLWGPFTCVSRVLSHHCFSTTGSLSAIQ*KMTRVRVVDNSALGNSPYHRAPRCIHVYKKNGVGKVGDQILLAIKGQKKKALIVGHCMPGPRMTPRFDSNNVVLIEDNGNPVGTRIKTPIPTSLRKREGEYSKVLAIAQNFV*TPTFREGV*GNEILVPL*RVLCKT*AV
+Notice the information added to the header:
+
+>t_127  GO:protein complex scaffold activity(GO:0032947)   MAX_ORF:112 aa
+Each header should contain the transcript name, the tag "GO:" followed by the parent gene's GO term, and the tag "MAX_ORF:", followed by the length of the longest ORF found in the amino acid sequence (and with "aa" afterward, indicating the length is measured in amino acids, not nucleotides).
+
+Specific requirements
+
+Each header in your output must contain only the following (in order, with each part separated by tabs):
+
+Transcript name
+"GO:X", where X is the GO annotation associated with the transcript's parent gene
+"MAX_ORF:Y aa", where Y is the length of the longest ORF in amino acids
+Your code must be able to run on the command-line as follows:
+
+$ python3 your_script.py transcripts.midterm2.fasta go_terms.midterm2.txt
+This means you will need to write your code to open the appropriate files using sys.argv.
+
+Transcript sequences must be sorted in your output by length of longest ORF in increasing order.
+
+Asterisks must be used to represent stop codons in your translated sequences
+
+Examine the example output format above carefully. For example, if there is a space between the length of the ORF and the "aa" (there is), your program needs to also put a space there, each piece of information in the header should be separated from the others by a tab, and so on.
+
