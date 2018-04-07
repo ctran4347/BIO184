@@ -1,7 +1,11 @@
 import os
 import re
 import sys
-os.system("clear")
+#----------------------------------------------------------------------
+# Clears screen
+def clear():
+    return os.system("clear")
+clear()
 #----------------------------------------------------------------------
 # Creating dictionary
 go_term_dictionary = {}
@@ -64,6 +68,5 @@ for lines in open(sys.argv[1]):
 #-------------------------------------------------------------------------
 for transcripts, go, max_orf, translated_sequence in sorted(zip(transcript_terms_list, go_terms_transcripts_list, max_orf_length_list, translated_sequence_list), key=lambda x: x[2]):
     print(f"{transcripts}\tGO:{go_term_dictionary.get(go)}\tMAX:ORF:{str(max_orf)} aa\n{translated_sequence}")
-# print(transcripts + "\t" + "GO:" + go_term_dictionary.get(go) +"\t" + "MAX_ORF:" + str(max_orf), "aa" + "\n" + translated_sequence)
 #-------------------------------------------------------------------------
 # python3 Midterm_Project_2_improved.py transcripts.midterm2.fasta go_terms.midterm2.txt
