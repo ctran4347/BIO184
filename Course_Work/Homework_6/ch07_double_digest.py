@@ -26,16 +26,16 @@ for AbcII_match in re.finditer(r"GC[AG][AT]TG", dna_sequence):
 cuts_list.append(len(dna_sequence))
 # print(cuts_list)
 sorted_cuts_list = sorted(cuts_list)
-print("The spliced lengths are:")
-print("\t" + str(sorted_cuts_list))
 
-print("The Fragment Sizes are:")
+
+
 count = 0
 # 1 is used in range rather than 0 because 0 would take the last index and subtract it with the first index rather than the next and previous.
+fragment_list=[]
 for i in range(1, len(sorted_cuts_list)):
     count += 1
     current_cut_position = sorted_cuts_list[i]
     previous_cut_positon = sorted_cuts_list[i-1]
     fragment_length = current_cut_position - previous_cut_positon
-    print("\t" + "Fragment" + "\t" + str(count) +
-          "\t" + "is" + "\t" + str(fragment_length))
+    fragment_list.append(fragment_length)
+print(sorted(fragment_list))

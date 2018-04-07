@@ -1,5 +1,5 @@
-import os
-import re
+
+import os,re,sys
 def clear():
     return os.system("clear")
 clear()
@@ -21,6 +21,7 @@ genecode = {
     'TAC':'Y', 'TAT':'Y', 'TAA':'_', 'TAG':'_',
     'TGC':'C', 'TGT':'C', 'TGA':'_', 'TGG':'W'}
 temp_list=[]
+import sys
 
 def translation(sequence):
     protein = ""
@@ -30,7 +31,12 @@ def translation(sequence):
          amino_acid=genecode.get(current_codon,"X")
          protein += amino_acid
     return protein
-
+    
+def main(argv):
+    for arguments in sys.argv[1:]:
+        print(translation(arguments))
+if __name__ == "__main__":
+    main(sys.argv)
          
 assert(translation("ATGTTCGGT")) == "MFG"
 assert(translation("ATCGATCGAT")) == "IDR"
