@@ -16,6 +16,7 @@ for go_terms in open(sys.argv[2]):
         description = go_term_and_description[1]
         go_term_dictionary[term] = description
 # ---------------------------------------------------------------------
+#Gene Dictionary
 genecode = {
     'ATA': 'I', 'ATC': 'I', 'ATT': 'I', 'ATG': 'M',
     'ACA': 'T', 'ACC': 'T', 'ACG': 'T', 'ACT': 'T',
@@ -35,9 +36,7 @@ genecode = {
     'TGC': 'C', 'TGT': 'C', 'TGA': '*', 'TGG': 'W'}
 # TAG,TAA, and TAG are stop codons
 # ---------------------------------------------------------------------
-# Definitions used in the entire project
-
-
+# Translates Genes
 def translation(sequence):
     protein = ""
     last_codon = len(sequence) - 2
@@ -47,8 +46,6 @@ def translation(sequence):
         amino_acid = genecode.get(current_codon, "X")
         protein += amino_acid
     return protein
-
-
 #-----------------------------------------------------------------------
 # Iterates through transcript file and does magic
 transcript_terms_list = []
@@ -66,6 +63,7 @@ for lines in open(sys.argv[1]):
         max_orf_length_list.append(len(max(sequence_split, key=len)))
         translated_sequence_list.append(translation(sequences_input))
 #-------------------------------------------------------------------------
+# Iterates through sorted tuple based on length of max_orf
 for transcripts, go, max_orf, translated_sequence in sorted(zip(transcript_terms_list, go_terms_transcripts_list, max_orf_length_list, translated_sequence_list), key=lambda x: x[2]):
     print(f"{transcripts}\tGO:{go_term_dictionary.get(go)}\tMAX:ORF:{str(max_orf)} aa\n{translated_sequence}")
 #-------------------------------------------------------------------------
