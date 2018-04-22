@@ -40,7 +40,6 @@ genecode = {
     'TAC':'Y', 'TAT':'Y', 'TAA':'*', 'TAG':'*',
     'TGC':'C', 'TGT':'C', 'TGA':'*', 'TGG':'W'}
 # TAG, TAA, AND TAG are stop codons
-
 #----------------------------------------------------------------------------------------------
 # Testing inputs
 # input_2=open("transcripts.midterm2.fasta").read()

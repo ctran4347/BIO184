@@ -1,0 +1,50 @@
+BIO 184 final project description | Spring 2018
+Overview
+** Please see the specific assignment requirements further down for important information regarding what you need to include
+
+For this assignment, you will be comparing groups of sequences from genes of different species. These genes have been bioinformatically inferred to be orthologs—copies of the same ancestral gene in different species—by using BLAST to identify gene sequences which are reciprocal best-hits of one another.
+
+The sequences in each group all come from the same set of five species, including human beings. Each group of five sequences has been computationally aligned using Clustal Omega; this program finds a best-fit alignment for all of the sequences against one another, introducing gaps (represented by hypens, -) in sequences when necessary. Human sequences in the file begin with the abbreviation Hsapi (from Homo sapiens), and every sequence contains information about which group of sequences it belongs to in its header (e.g. group_4).
+
+For each group of sequences, your program will need to compare the human sequence to every other sequence in the group and calculate a similarity score (defined below). Then, based upon the average similarity of human to each species across all sequence groups, it will report a rank-ordered list of the species abbreviations from most-to-least similar to human, along with their associated average percent similarity scores.
+
+Specific requirements
+Define and use at least one class
+Define and use at least two functions
+Take the input file as the sole argument to your program using sys.argv
+No hard-coding of any values (lengths of sequences, number of same/different characters, etc)
+Print only the information described in the "Output" section below
+Name your file (with the usual additions) final_project.py
+Details
+Source file: multi-species_alignments.fa
+Find this file in Files under the "Final project" folder on CatCourses.
+
+This file contains all of the sequences to be processed, in FASTA format. The group to which each sequence belongs is listed in the sequence's header; for example, the following header is for a sequence from human (it starts with Hsapi), in group 15:
+
+>Hsapi-transcript:ENST00000373451    group_15
+There are 25 groups total, each with five seqeunces from the same set of five species.
+
+Sequence similarity calculation
+Before comparing any two sequences, remember that they must be translated to amino acid sequence first. Any gaps present in the nucleotide sequence (represented by hyphens, -) need to be translated as well, such that --- in the DNA becomes - in the translation. Gaps in the DNA sequence will always be 3n (divisible by three).
+
+Within each group, the four sequences that are not from human will need to be compared to the same human sequence, and have their scores stored. All of the sequences in each group are the same length (due to the alignment process); for every sequence pair, the score should be defined as Ns / Nt, where Ns is the number of amino acids that are the same between the two sequences, and Nt is the total length of the aligned sequence (including gaps).
+
+For example, if the following were two of the sequences (with the asterisks along the bottom indicating columns where there is a difference between the two sequences),
+
+human:  MAPALLIDRN
+sp_x:   VAPASL--RN
+        *   * **
+then the similarity of human and sp_x would be the number of amino acids that are the same between the two, 6 (i.e. 10 minus 4), divided by the total length of the alignment, 10, resulting in the decimal value 0.6.
+
+Similarity averages
+After parsing the input file and performing the similarity calculations, you will, for each of the four non-human species, have 25 sequence similarity values versus human. For each species, you will need to compute the mean similarity value with human, i.e. the sum of all similarity values over the number of similarity values. This must then be converted to a percentage, and rounded to two decimal places.
+
+By the end you should have, for each species, a single, average similarity percentage. Please keep in mind throughout this exercise that this is an incredibly simplified version of this process; for real sequence analysis, much more complicated algorithms are used to define things like sequence simliarity.
+
+Output
+The output for this project will be very simple: your program should print out a tab-separated list of species abbreviations and average similarity percentages in descending order, e.g.:
+
+sp1    78.45
+sp2    56.70
+sp3    42.00
+and that's it!
