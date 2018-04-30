@@ -21,30 +21,8 @@ genecode = {
     'TAC': 'Y', 'TAT': 'Y', 'TAA': '$', 'TAG': '$',
     'TGC': 'C', 'TGT': 'C', 'TGA': '$', 'TGG': 'W', '---' : "-"}
 #--------------------------------------
-
-# class DNARecord(object):
-#     def __int__(self,species_name,group_number,sequence):
-#         self.species_name=species_name  
-#         self.group_number=group_number
-
-def translation(self):
-    protein = ""
-    last_codon = len(self) - 2
-# Iterates starting at 0 and increases by 3 indexes each time
-    for start_position in range(0, last_codon, 3):
-        current_codon = self[start_position:start_position + 3]
-        amino_acid = genecode.get(current_codon, "X")
-        protein += amino_acid
-    return protein
 #--------------------------------
-species_name=[]
-group_number=[]
-translated_sequeunce=[]
-for entry in open("multi-species_alignments.fa"):
-    if entry.startswith(">"):
-        split=entry.strip("\n").split("\t")
-        species_name.append(split[0])
-        group_number.append(split[1])
-    else:
-        translated_sequeunce.append(translation(entry))
-print(species_name)
+for derp in open("multi-species_alignments.fa"):
+    print(derp)
+        
+
