@@ -36,7 +36,7 @@ hit_lines = filter(comment_filter, open('blast_result.txt'))
 
 # how many hits have fewer than 20 mismatches?
 few_mismatch_hits = filter(mismatch_filter, hit_lines)
-print("number of hits with < 20 mismatchs: " + str(len(few_mismatch_hits)))
+print("number of hits with < 20 mismatchs: " + str(len(list(few_mismatch_hits))))\
 
 # list the subject sequence names for the ten hits with the lowest percent id
 hits_sorted_by_percent_id = sorted(hit_lines, key=get_percent_id)
