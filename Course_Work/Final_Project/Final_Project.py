@@ -20,22 +20,7 @@ genecode = {
     'TTC': 'F', 'TTT': 'F', 'TTA': 'L', 'TTG': 'L',
     'TAC': 'Y', 'TAT': 'Y', 'TAA': '$', 'TAG': '$',
     'TGC': 'C', 'TGT': 'C', 'TGA': '$', 'TGG': 'W', '---' : "-"}
-#--------------------------------------
-<<<<<<< HEAD
-#--------------------------------
-class DNARecord:
-    def __int__(self,file_name):
-        self.file_name=file_name
-    def header(self)
-        for lines in open(file_name):
-            if lines.startswith(">")
-                split=lines.strip("\n").split("\t")
-                header=split[0]
-            print(header)
-
-
-                
-=======
+#--------------------------------------                
 def translation(sequence):
     protein = ""
     last_codon = len(sequence) - 2
@@ -153,7 +138,6 @@ for name,group,sequence in zip(d1.species_name(),d1.group_number(),d1.sequence()
         human_sequence=""
     else:
         pass
->>>>>>> ad85a3b1a2dd0629e1df80d26132d88c51a41f70
 
 # -------------------------------------
 # for name,similarity in similarity_dict.items():
