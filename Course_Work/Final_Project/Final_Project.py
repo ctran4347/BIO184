@@ -22,7 +22,16 @@ genecode = {
     'TGC': 'C', 'TGT': 'C', 'TGA': '$', 'TGG': 'W', '---' : "-"}
 #--------------------------------------
 #--------------------------------
-for derp in open("multi-species_alignments.fa"):
-    print(derp)
-        
+class DNARecord:
+    def __int__(self,file_name):
+        self.file_name=file_name
+    def header(self)
+        for lines in open(file_name):
+            if lines.startswith(">")
+                split=lines.strip("\n").split("\t")
+                header=split[0]
+            print(header)
+
+
+                
 
